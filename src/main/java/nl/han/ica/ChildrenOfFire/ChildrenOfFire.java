@@ -1,11 +1,15 @@
-package nl.han.ica.ChildrenOfFire;
+package nl.han.ica.childrenoffire;
+
+import java.util.ArrayList;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
+import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
-import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
+import nl.han.ica.OOPDProcessingEngineHAN.View.View;
+import nl.han.ica.childrenoffire.tiles.*;
 import processing.core.PApplet;
 
 /**
@@ -22,12 +26,12 @@ import processing.core.PApplet;
 @SuppressWarnings("serial")
 public class ChildrenOfFire extends GameEngine {
     private String[] tilemapList = {
-        "main/java/nl/han/ica/ChildrenOfFire/Tilemaps/tilemap-1.txt"
+        "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-1.txt"
     };
     private int currentTileMap = 0; // default
 
     public static void main(String[] args) {
-        PApplet.main(new String[] { "nl.han.ica.ChildrenOfFire.ChildrenOfFire" });
+        PApplet.main(new String[] { "nl.han.ica.childrenoffire.ChildrenOfFire" });
     }
 
     /**
@@ -35,7 +39,12 @@ public class ChildrenOfFire extends GameEngine {
      */
     @Override
     public void setupGame() {
+        int worldWidth = 1400;
+        int worldHeight = 800;
+
         initializeTileMap();
+
+        createViewWithoutViewport(worldWidth, worldHeight);
     }
 
     /**
@@ -47,6 +56,18 @@ public class ChildrenOfFire extends GameEngine {
     }
 
     /**
+     * Create view without viewport
+     * @param int screenWidth - Width of the screen
+     * @param int screenHeight - Height of the screen
+     */
+    private void createViewWithoutViewport(int screenWidth, int screenHeight) {
+        View view = new View(screenWidth,screenHeight);
+
+        setView(view);
+        size(screenWidth, screenHeight);
+    }
+
+    /**
      * This function will initialize the whole tile map
      * 
      * @see TileMap
@@ -54,7 +75,7 @@ public class ChildrenOfFire extends GameEngine {
     private void initializeTileMap() {
         int tileSize = 32;
         TileType tileTypes[] = initializeTileTypes();
-        int indexMap[][] = loadIndexMapFromFile(tilemapList[currentTileMap], 43, 25);
+        int indexMap[][] = loadIndexMapFromFile(tilemapList[currentTileMap], 44, 25);
         tileMap = new TileMap(tileSize, tileTypes, indexMap);
     }
 
@@ -66,10 +87,26 @@ public class ChildrenOfFire extends GameEngine {
      * 
      * 
      * @return returns a new TileType[] containing all tile types
-     * @see Tile, TileType
+     * @see TileType
      */
     private TileType[] initializeTileTypes() {
-        return new TileType[] {};
+        ArrayList<TileType> tileTypeList = new ArrayList<>();
+
+        String path = "src/main/java/nl/han/ica/childrenoffire/files/tilesprites/";
+
+        Sprite groundSprite = new Sprite(path + "ground.png");
+        Sprite wallTopSprite = new Sprite(path + "wall-top.png");
+        Sprite wallSideSprite = new Sprite(path + "wall-side.png");
+        Sprite spawnSprite = new Sprite(path + "spawn.png");
+        Sprite stairsSprite = new Sprite(path + "stairs.png");
+        
+        tileTypeList.add(new TileType<>(GroundTile.class, groundSprite));
+        tileTypeList.add(new TileType<>(WallTile.class, wallTopSprite));
+        tileTypeList.add(new TileType<>(WallTile.class, wallSideSprite));
+        tileTypeList.add(new TileType<>(SpawnTile.class, spawnSprite));
+        tileTypeList.add(new TileType<>(StairsTile.class, stairsSprite));
+
+        return tileTypeList.toArray(new TileType[tileTypeList.size()]);
     }
 
     /**
@@ -87,7 +124,7 @@ public class ChildrenOfFire extends GameEngine {
         IPersistence indexMapPersistence = new FilePersistence(path);
         String fileToStringList[];
         
-        int indexMap[][] = new int[width][height];
+        int indexMap[][] = new int[height][width];
 
         if (indexMapPersistence.fileExists()) {
             fileToStringList = indexMapPersistence.loadDataStringArray("\\n");

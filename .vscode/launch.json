@@ -1,0 +1,81 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ChildrenOfFire<OOPG-ZetHierNaamVanJeSpel>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "nl.han.ica.childrenoffire.ChildrenOfFire",
+            "projectName": "OOPG-ZetHierNaamVanJeSpel",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PApplet<OOPG-ZetHierNaamVanJeSpel>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "processing.core.PApplet",
+            "projectName": "OOPG-ZetHierNaamVanJeSpel",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-jlc<OOPG-ZetHierNaamVanJeSpel>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "javazoom.jl.converter.jlc",
+            "projectName": "OOPG-ZetHierNaamVanJeSpel",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-jlap<OOPG-ZetHierNaamVanJeSpel>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "javazoom.jl.player.advanced.jlap",
+            "projectName": "OOPG-ZetHierNaamVanJeSpel",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-jlp<OOPG-ZetHierNaamVanJeSpel>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "javazoom.jl.player.jlp",
+            "projectName": "OOPG-ZetHierNaamVanJeSpel",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IcyInputStream<OOPG-ZetHierNaamVanJeSpel>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "javazoom.spi.mpeg.sampled.file.tag.IcyInputStream",
+            "projectName": "OOPG-ZetHierNaamVanJeSpel",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 0
+        }
+    ]
+}
