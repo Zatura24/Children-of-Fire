@@ -44,6 +44,8 @@ public class ChildrenOfFire extends GameEngine {
 
         initializeTileMap();
 
+        createObjects();
+
         createViewWithoutViewport(worldWidth, worldHeight);
     }
 
@@ -65,6 +67,13 @@ public class ChildrenOfFire extends GameEngine {
 
         setView(view);
         size(screenWidth, screenHeight);
+    }
+
+    private void createObjects() {
+        int tileSize = getTileMap().getTileSize();
+
+        Enemy rabite_1 = new Enemy(this, "src/main/java/nl/han/ica/childrenoffire/files/objectsprites/rabite.png");
+        addGameObject(rabite_1, 32*tileSize, 15*tileSize);
     }
 
     /**
