@@ -25,6 +25,7 @@ import java.util.Vector;
  * 
  * This engine is created by: Bram Heijmink, Jeffrey Haen, Joost Elshof, Kenny Ligthart, Mark Vaesen & Nico Smolders.
  */
+@SuppressWarnings("serial")
 public abstract class GameEngine extends PApplet {
 
     /**
