@@ -58,7 +58,6 @@ public class ChildrenOfFire extends GameEngine {
      */
     @Override
     public void update() {
-
     }
 
     /**
