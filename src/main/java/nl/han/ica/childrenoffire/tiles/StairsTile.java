@@ -13,5 +13,4 @@ public class StairsTile extends Tile {
     public StairsTile(Sprite sprite) {
         super(sprite);
     }
-    
 }

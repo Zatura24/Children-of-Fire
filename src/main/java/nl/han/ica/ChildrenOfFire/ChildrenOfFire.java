@@ -1,6 +1,7 @@
 package nl.han.ica.childrenoffire;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
@@ -9,7 +10,10 @@ import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
-import nl.han.ica.childrenoffire.tiles.*;
+import nl.han.ica.childrenoffire.tiles.GroundTile;
+import nl.han.ica.childrenoffire.tiles.SpawnTile;
+import nl.han.ica.childrenoffire.tiles.StairsTile;
+import nl.han.ica.childrenoffire.tiles.WallTile;
 import processing.core.PApplet;
 
 /**
@@ -72,8 +76,23 @@ public class ChildrenOfFire extends GameEngine {
     private void createObjects() {
         int tileSize = getTileMap().getTileSize();
 
-        Enemy rabite_1 = new Enemy(this, "src/main/java/nl/han/ica/childrenoffire/files/objectsprites/rabite.png");
-        addGameObject(rabite_1, 32*tileSize, 15*tileSize);
+        Enemy rabite_1 = new Rabite(this);
+        Enemy rabite_2 = new Rabite(this);
+        Enemy rabite_3 = new Rabite(this);
+        addGameObject(rabite_1, 32*tileSize, 14*tileSize);
+        addGameObject(rabite_2, 34*tileSize, 18*tileSize);
+        addGameObject(rabite_3, 12*tileSize, 22*tileSize);
+
+        // functie die niet nodig is yo XD
+        // int map[][] = getTileMap().getTileMap();
+        // for (int row = 0; row < map.length; row++) {
+        //     for (int col = 0; col < map[0].length; col++) {
+        //         if (map[row][col] == 3) {
+        //             float x = getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).x;
+        //             float y = getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).y;
+        //         }
+        //     }
+        // }
     }
 
     /**
