@@ -216,7 +216,10 @@ public class ChildrenOfFire extends GameEngine {
         currentTileMap = 0;
         initializeTileMap();
 
+        deleteAllGameOBjects();
+
         player = new Player(this);
+        addGameObject(player);
 
         setObjectLocations();
     }
