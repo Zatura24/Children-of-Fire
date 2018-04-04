@@ -48,8 +48,8 @@ public class ChildrenOfFire extends GameEngine {
      */
     @Override
     public void setupGame() {
-        int worldWidth = 1400;
-        int worldHeight = 800;
+        int worldWidth = 1300;
+        int worldHeight = 700;
 
         initializeTileMap();
 
@@ -86,11 +86,10 @@ public class ChildrenOfFire extends GameEngine {
         Enemy rabite_1 = new Rabite(this);
         Enemy rabite_2 = new Rabite(this);
         Enemy rabite_3 = new Rabite(this);
-        addGameObject(rabite_1, 32*tileSize, 14*tileSize);
-        addGameObject(rabite_2, 34*tileSize, 18*tileSize);
-        addGameObject(rabite_3, 12*tileSize, 22*tileSize);
+        addGameObject(rabite_1, 30*tileSize, 12*tileSize);
+        addGameObject(rabite_2, 32*tileSize, 14*tileSize);
+        addGameObject(rabite_3, 12*tileSize, 19*tileSize);
 
-        // functie die niet nodig is yo XD
         int map[][] = getTileMap().getTileMap();
         int x = 0;
         int y = 0;
@@ -125,7 +124,7 @@ public class ChildrenOfFire extends GameEngine {
     private void initializeTileMap() {
         int tileSize = 32;
         TileType tileTypes[] = initializeTileTypes();
-        int indexMap[][] = loadIndexMapFromFile(tilemapList[currentTileMap], 44, 25);
+        int indexMap[][] = loadIndexMapFromFile(tilemapList[currentTileMap], 41, 22);
         tileMap = new TileMap(tileSize, tileTypes, indexMap);
     }
 
