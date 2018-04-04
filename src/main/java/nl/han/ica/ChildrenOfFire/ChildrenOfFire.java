@@ -1,7 +1,6 @@
 package nl.han.ica.childrenoffire;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;

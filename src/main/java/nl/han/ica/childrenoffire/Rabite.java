@@ -33,7 +33,7 @@ public class Rabite extends Enemy {
 
     @Override
     public void dropItem() {
-        Coin coin = new Coin();
+        Coin coin = new Coin(1);
         getWorld().addGameObject(coin);
 
         coin.setX(this.getX());
