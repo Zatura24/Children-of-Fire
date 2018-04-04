@@ -134,7 +134,7 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
         for (GameObject o : collidedObjects) {
             if (o instanceof Player) {
                 ((Player) o).decreaseHealth(attackDamage);
-                
+
                 if(((Player) o).getDirection() == 90){ // van links naar rechts
                     ((Player) o).setX(((Player) o).getX() - ((Player) o).getWidth());
                 }
@@ -144,7 +144,7 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
                 if (((Player) o).getDirection() == 0) { // van onder naar boven
                     ((Player) o).setY(((Player) o).getY() + ((Player) o).getWidth());
                 }
-                if (((Player) o).getDirection() == 1*0) { // van onder naar boven
+                if (((Player) o).getDirection() == 180) { // van onder naar boven
                     ((Player) o).setY(((Player) o).getY() - ((Player) o).getWidth());
                 }
             }
