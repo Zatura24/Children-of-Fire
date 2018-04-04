@@ -16,7 +16,7 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
 
     private int health;
 
-    private int attackDamage = 5;
+    private int attackDamage = 20;
 
     // simpel timer variables for moving the object
     private final int MOVEDELAY = 1000;
@@ -136,16 +136,16 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
                 ((Player) o).decreaseHealth(attackDamage);
 
                 if(((Player) o).getDirection() == 90){ // van links naar rechts
-                    ((Player) o).setX(((Player) o).getX() - ((Player) o).getWidth());
+                    ((Player) o).setX(((Player) o).getX() - (((Player) o).getWidth() / 2));
                 }
                 if (((Player) o).getDirection() == 270) { // van rechts naar links
-                    ((Player) o).setX(((Player) o).getX() + ((Player) o).getWidth());
+                    ((Player) o).setX(((Player) o).getX() + (((Player) o).getWidth() / 2));
                 }
                 if (((Player) o).getDirection() == 0) { // van onder naar boven
-                    ((Player) o).setY(((Player) o).getY() + ((Player) o).getWidth());
+                    ((Player) o).setY(((Player) o).getY() + (((Player) o).getWidth() / 2));
                 }
                 if (((Player) o).getDirection() == 180) { // van onder naar boven
-                    ((Player) o).setY(((Player) o).getY() - ((Player) o).getWidth());
+                    ((Player) o).setY(((Player) o).getY() - (((Player) o).getWidth() / 2));
                 }
             }
         }

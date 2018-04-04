@@ -82,6 +82,7 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
             if(o instanceof Coin){
                 ((Coin) o).pickUp(this, world);
             }
+
         }
     }
 
@@ -152,6 +153,11 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
     }
 
     public void decreaseHealth(int d){
-        this.health-= d;
+        if(this.health > 0 ){
+            this.health -= d;
+        }
+        if(this.health == 0){
+            
+        }
     }
 }
