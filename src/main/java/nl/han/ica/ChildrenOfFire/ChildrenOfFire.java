@@ -2,6 +2,7 @@ package nl.han.ica.childrenoffire;
 
 import java.util.ArrayList;
 
+import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
@@ -28,6 +29,7 @@ import processing.core.PApplet;
  */
 @SuppressWarnings("serial")
 public class ChildrenOfFire extends GameEngine {
+    private TextObject dashboardText;
     private String[] tilemapList = {
         "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-1.txt"
     };
@@ -48,6 +50,7 @@ public class ChildrenOfFire extends GameEngine {
         initializeTileMap();
 
         createObjects();
+        createDashboard(worldWidth, 100);
 
         createViewWithoutViewport(worldWidth, worldHeight);
     }
@@ -57,6 +60,7 @@ public class ChildrenOfFire extends GameEngine {
      */
     @Override
     public void update() {
+        refreshDashboard();
     }
 
     /**
@@ -91,6 +95,17 @@ public class ChildrenOfFire extends GameEngine {
         //         }
         //     }
         // }
+    }
+
+    private void createDashboard(int dashboardWidth, int dashboardHeight) {
+        Dashboard dashboard = new Dashboard(0, 0, dashboardWidth, dashboardHeight);
+        dashboardText = new TextObject("");
+        dashboard.addGameObject(dashboardText);
+        addDashboard(dashboard);
+    }
+
+    private void refreshDashboard() {
+        dashboardText.setText("player health");
     }
 
     /**
