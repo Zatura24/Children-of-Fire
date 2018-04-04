@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
+import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
@@ -14,7 +15,6 @@ import nl.han.ica.childrenoffire.tiles.GroundTile;
 import nl.han.ica.childrenoffire.tiles.SpawnTile;
 import nl.han.ica.childrenoffire.tiles.StairsTile;
 import nl.han.ica.childrenoffire.tiles.WallTile;
-import processing.core.PApplet;
 
 /**
  * <h1>Children of Fire</h1>

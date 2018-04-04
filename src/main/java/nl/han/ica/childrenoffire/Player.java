@@ -4,19 +4,20 @@ import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
 import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
+import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
 import nl.han.ica.childrenoffire.tiles.StairsTile;
 import nl.han.ica.childrenoffire.tiles.WallTile;
 import processing.core.PVector;
 
-public class Player extends SpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles{
+public class Player extends AnimatedSpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
     private ChildrenOfFire world;
     private int health;
     private int speed;
     private int credits;
-    
+    private int keys;
+
     private int currentKey;
 
     /**
@@ -25,8 +26,8 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
      * @param world - Reference to the world object
      * 
      */
-    public Player(ChildrenOfFire world){
-        this(world, 100, 5);        
+    public Player(ChildrenOfFire world) {
+        this(world, 100, 5);
     }
 
     public Player(ChildrenOfFire world, int health) {
@@ -34,18 +35,19 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
     }
 
     private Player(ChildrenOfFire world, int health, int speed) {
-        super(new Sprite("src/main/java/nl/han/ica/childrenoffire/files/objectsprites/lyn.png"));
+        super(new Sprite("src/main/java/nl/han/ica/childrenoffire/files/objectsprites/lyn.png"), 2);
         this.world = world;
         this.health = health;
         this.speed = speed;
+        setCurrentFrameIndex(1);
         setFriction(0.3f);
     }
 
     /**
      * This function will be called every frame
      */
-    public void update(){
-        
+    public void update() {
+
     }
 
     /**
@@ -55,36 +57,34 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
      * @param char key - Character representation of pressed key
      */
     @Override
-    public void keyPressed(int keyCode, char key){
+    public void keyPressed(int keyCode, char key) {
         currentKey = keyCode;
         if (keyCode == world.UP) {
             setDirectionSpeed(0, speed);
         }
         if (keyCode == world.RIGHT) {
             setDirectionSpeed(90, speed);
+            setCurrentFrameIndex(1);
         }
         if (keyCode == world.DOWN) {
             setDirectionSpeed(180, speed);
         }
-        if(keyCode == world.LEFT){
+        if (keyCode == world.LEFT) {
             setDirectionSpeed(270, speed);
+            setCurrentFrameIndex(0);
         }
-        if(keyCode == 83){
-            Bullet bullet = new Bullet(this.getX(), this.getY(),this.getDirection(), 10, world);
+        if (keyCode == 83) {
+            Bullet bullet = new Bullet(this.getX(), this.getY(), this.getDirection(), 10, world);
             world.addGameObject(bullet);
             bullet.bulletMove();
         }
     }
 
-    public void increaseScore(int value){
-        this.credits += value;
-    }
-
     @Override
-    public void gameObjectCollisionOccurred(java.util.List<GameObject> collidedObjects){
-        for(GameObject o : collidedObjects){
-            if(o instanceof Coin){
-                ((Coin) o).pickUp(this, world);
+    public void gameObjectCollisionOccurred(java.util.List<GameObject> collidedObjects) {
+        for (GameObject object : collidedObjects) {
+            if (object instanceof Coin) {
+                ((Coin) object).pickUp(this, world);
             }
 
         }
@@ -95,56 +95,69 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
     * 
     * @param List<CollidedTile> collidedTiles - List of collidedtiles
     */
-    public void tileCollisionOccurred(java.util.List<CollidedTile> collidedTiles){
+    public void tileCollisionOccurred(java.util.List<CollidedTile> collidedTiles) {
         PVector vector;
-        for(CollidedTile t : collidedTiles){
+        for (CollidedTile tile : collidedTiles) {
             // If player collided with a wall, move the player back
-            if(t.theTile instanceof WallTile){
-                if(t.collisionSide == t.INSIDE){
-                    if(currentKey == world.UP){
-                        try{
-                            vector = world.getTileMap().getTilePixelLocation(t.theTile);
+            if (tile.theTile instanceof WallTile) {
+                if (tile.collisionSide == tile.INSIDE) {
+                    if (currentKey == world.UP) {
+                        try {
+                            vector = world.getTileMap().getTilePixelLocation(tile.theTile);
                             setY(vector.y + getHeight());
-                        }
-                        catch(TileNotFoundException e){
+                        } catch (TileNotFoundException e) {
                             e.printStackTrace();
                         }
                     }
                     if (currentKey == world.RIGHT) {
                         try {
-                            vector = world.getTileMap().getTilePixelLocation(t.theTile);
+                            vector = world.getTileMap().getTilePixelLocation(tile.theTile);
                             setX(vector.x - getWidth());
                         } catch (TileNotFoundException e) {
                             e.printStackTrace();
                         }
                     }
-                    if(currentKey == world.DOWN){
-                        try{
-                            vector = world.getTileMap().getTilePixelLocation(t.theTile);
+                    if (currentKey == world.DOWN) {
+                        try {
+                            vector = world.getTileMap().getTilePixelLocation(tile.theTile);
                             setY(vector.y - getHeight());
-                        }
-                        catch(TileNotFoundException e){
+                        } catch (TileNotFoundException e) {
                             e.printStackTrace();
                         }
                     }
-                    if (t.collisionSide == t.INSIDE) {
-                        if (currentKey == world.LEFT) {
-                            try {
-                                vector = world.getTileMap().getTilePixelLocation(t.theTile);
-                                setX(vector.x + getWidth());
-                            } catch (TileNotFoundException e) {
-                                e.printStackTrace();
-                            }
+                    if (currentKey == world.LEFT) {
+                        try {
+                            vector = world.getTileMap().getTilePixelLocation(tile.theTile);
+                            setX(vector.x + getWidth());
+                        } catch (TileNotFoundException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
-                 
+
             }
 
             // If the player collided with a stair, go to next level
-            if(t.theTile instanceof StairsTile){
-               world.goToNextTileMap();
+            if (tile.theTile instanceof StairsTile) {
+                world.goToNextTileMap();
             }
+        }
+    }
+
+    protected void increaseScore(int value) {
+        this.credits += value;
+    }
+
+    protected void increaseKeys(int value) {
+        this.keys += value;
+    }
+
+    protected void decreaseHealth(int amount) {
+        if (this.health > 0) {
+            this.health -= amount;
+        }
+        if (this.health <= 0) {
+            world.resetGame();
         }
     }
 
@@ -156,12 +169,7 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
         return this.credits;
     }
 
-    public void decreaseHealth(int d){
-        if(this.health > 0 ){
-            this.health -= d;
-        }
-        if(this.health == 0){
-            world.resetGame();
-        }
+    public int getKeys() {
+        return this.keys;
     }
 }

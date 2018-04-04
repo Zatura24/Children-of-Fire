@@ -8,14 +8,14 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
 import nl.han.ica.childrenoffire.tiles.WallTile;
 
-public class Bullet extends SpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles{
+public class Bullet extends SpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
     private int speed = 5;
     private float x, y;
     private float direction;
     private ChildrenOfFire world;
     private int bulletDamage;
 
-    public Bullet(float x, float y, float direction, int bulletDamage, ChildrenOfFire world){
+    public Bullet(float x, float y, float direction, int bulletDamage, ChildrenOfFire world) {
         super(new Sprite("src/main/java/nl/han/ica/childrenoffire/files/objectsprites/mana-ball.png"));
         this.x = x;
         this.y = y;
@@ -24,11 +24,12 @@ public class Bullet extends SpriteObject implements ICollidableWithGameObjects, 
         this.bulletDamage = bulletDamage;
     }
 
-    public void bulletMove(){
+    public void bulletMove() {
         setX(x);
         setY(y);
         setDirectionSpeed(direction, speed);
     }
+
     /**
      * This function will be called every frame
      */
@@ -36,18 +37,18 @@ public class Bullet extends SpriteObject implements ICollidableWithGameObjects, 
 
     }
 
-    public void gameObjectCollisionOccurred(java.util.List<GameObject> collidedObjects){
-        for(GameObject o : collidedObjects){
-            if(o instanceof Enemy){
-                ((Enemy)o).decreaseHealth(bulletDamage);
+    public void gameObjectCollisionOccurred(java.util.List<GameObject> collidedObjects) {
+        for (GameObject object : collidedObjects) {
+            if (object instanceof Enemy) {
+                ((Enemy) object).decreaseHealth(bulletDamage);
                 world.deleteGameObject(this);
             }
         }
     }
 
-    public void tileCollisionOccurred(java.util.List<CollidedTile> collidedTiles){
-        for(CollidedTile t : collidedTiles){
-            if(t.theTile instanceof WallTile){
+    public void tileCollisionOccurred(java.util.List<CollidedTile> collidedTiles) {
+        for (CollidedTile t : collidedTiles) {
+            if (t.theTile instanceof WallTile) {
                 world.deleteGameObject(this);
             }
         }

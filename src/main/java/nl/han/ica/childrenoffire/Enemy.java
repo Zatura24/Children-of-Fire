@@ -1,16 +1,14 @@
 package nl.han.ica.childrenoffire;
 
-import java.util.Random;
-
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
+import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
 
 /**
  * Enemy
  */
-public abstract class Enemy extends SpriteObject implements IHasItem, ICollidableWithGameObjects {
+public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, ICollidableWithGameObjects {
 
     private ChildrenOfFire world;
 
@@ -31,10 +29,11 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
      * @param health - Amount of health this enemy has
      */
     public Enemy(ChildrenOfFire world, String path, int posX, int posY, int health) {
-        super(new Sprite(path));
+        super(new Sprite(path), 2);
         this.world = world;
         this.health = health;
 
+        setCurrentFrameIndex(0);
         setX(posX);
         setY(posY);
 
@@ -89,8 +88,10 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
             int direction = (int) (Math.random() * 360);
             setSpeed(1);
             setDirection(direction);
-            health--;
+
+            setCurrentFrameIndex(direction > 180 ? 1 : 0);
         }
+
         preventFromGetttingOOB();
     }
 
@@ -108,6 +109,7 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
 
         if (surroundings[1][2] != 0) {
             setDirection(270);
+            setCurrentFrameIndex(1);
         }
 
         if (surroundings[2][1] != 0) {
@@ -116,6 +118,7 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
 
         if (surroundings[1][0] != 0) {
             setDirection(90);
+            setCurrentFrameIndex(0);
         }
     }
 
@@ -128,41 +131,44 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
             world.deleteGameObject(this);
         }
     }
-    
+
     @Override
     public void gameObjectCollisionOccurred(java.util.List<GameObject> collidedObjects) {
-        for (GameObject o : collidedObjects) {
-            if (o instanceof Player) {
-                ((Player) o).decreaseHealth(attackDamage);
+        for (GameObject object : collidedObjects) {
+            if (object instanceof Player) {
+                Player objectAsPlayer = (Player) object;
+                
+                objectAsPlayer.decreaseHealth(attackDamage);
 
-                if(((Player) o).getDirection() == 90){ // van links naar rechts
-                    ((Player) o).setX(((Player) o).getX() - (((Player) o).getWidth() / 2));
+                // move the player away from the enemy
+                if (objectAsPlayer.getDirection() == 90) { // van links naar rechts
+                    objectAsPlayer.setX(objectAsPlayer.getX() - (objectAsPlayer.getWidth() / 2));
                 }
-                if (((Player) o).getDirection() == 270) { // van rechts naar links
-                    ((Player) o).setX(((Player) o).getX() + (((Player) o).getWidth() / 2));
+                if (objectAsPlayer.getDirection() == 270) { // van rechts naar links
+                    objectAsPlayer.setX(objectAsPlayer.getX() + (objectAsPlayer.getWidth() / 2));
                 }
-                if (((Player) o).getDirection() == 0) { // van onder naar boven
-                    ((Player) o).setY(((Player) o).getY() + (((Player) o).getWidth() / 2));
+                if (objectAsPlayer.getDirection() == 0) { // van onder naar boven
+                    objectAsPlayer.setY(objectAsPlayer.getY() + (objectAsPlayer.getWidth() / 2));
                 }
-                if (((Player) o).getDirection() == 180) { // van onder naar boven
-                    ((Player) o).setY(((Player) o).getY() - (((Player) o).getWidth() / 2));
+                if (objectAsPlayer.getDirection() == 180) { // van onder naar boven
+                    objectAsPlayer.setY(objectAsPlayer.getY() - (objectAsPlayer.getWidth() / 2));
                 }
             }
         }
     }
+
     /**
      * Implement what will happen when this enemy drops an item
      */
     @Override
     public abstract void dropItem();
 
-    public ChildrenOfFire getWorld() {
+    protected ChildrenOfFire getWorld() {
         return this.world;
     }
 
-    public void decreaseHealth(int a){
-        this.health-=a;
+    protected void decreaseHealth(int amount) {
+        this.health -= amount;
     }
 
-    
 }
