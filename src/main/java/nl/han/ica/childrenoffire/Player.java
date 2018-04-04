@@ -150,4 +150,8 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
     public int getCredits() {
         return this.credits;
     }
+
+    public void decreaseHealth(int d){
+        this.health-= d;
+    }
 }

@@ -1,16 +1,22 @@
 package nl.han.ica.childrenoffire;
 
+import java.util.Random;
+
+import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
+import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
 
 /**
  * Enemy
  */
-public abstract class Enemy extends SpriteObject implements IHasItem {
+public abstract class Enemy extends SpriteObject implements IHasItem, ICollidableWithGameObjects {
 
     private ChildrenOfFire world;
 
     private int health;
+
+    private int attackDamage = 5;
 
     // simpel timer variables for moving the object
     private final int MOVEDELAY = 1000;
@@ -122,7 +128,28 @@ public abstract class Enemy extends SpriteObject implements IHasItem {
             world.deleteGameObject(this);
         }
     }
-
+    
+    @Override
+    public void gameObjectCollisionOccurred(java.util.List<GameObject> collidedObjects) {
+        for (GameObject o : collidedObjects) {
+            if (o instanceof Player) {
+                ((Player) o).decreaseHealth(attackDamage);
+                
+                if(((Player) o).getDirection() == 90){ // van links naar rechts
+                    ((Player) o).setX(((Player) o).getX() - ((Player) o).getWidth());
+                }
+                if (((Player) o).getDirection() == 270) { // van rechts naar links
+                    ((Player) o).setX(((Player) o).getX() + ((Player) o).getWidth());
+                }
+                if (((Player) o).getDirection() == 0) { // van onder naar boven
+                    ((Player) o).setY(((Player) o).getY() + ((Player) o).getWidth());
+                }
+                if (((Player) o).getDirection() == 1*0) { // van onder naar boven
+                    ((Player) o).setY(((Player) o).getY() - ((Player) o).getWidth());
+                }
+            }
+        }
+    }
     /**
      * Implement what will happen when this enemy drops an item
      */
@@ -132,4 +159,6 @@ public abstract class Enemy extends SpriteObject implements IHasItem {
     public ChildrenOfFire getWorld() {
         return this.world;
     }
+
+    
 }
