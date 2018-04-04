@@ -7,6 +7,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
+import nl.han.ica.childrenoffire.tiles.StairsTile;
 import nl.han.ica.childrenoffire.tiles.WallTile;
 import processing.core.PVector;
 
@@ -122,6 +123,9 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects,I
                         }
                     }
                 }
+            }
+            if(t.theTile instanceof StairsTile){
+               world.increaseTileMap();
             }
         }
     }

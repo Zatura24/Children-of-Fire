@@ -31,7 +31,8 @@ import processing.core.PApplet;
 public class ChildrenOfFire extends GameEngine {
     private TextObject dashboardText;
     private String[] tilemapList = {
-        "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-1.txt"
+        "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-1.txt",
+        "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-2.txt"
     };
     private int currentTileMap = 0; // default
     private Player player;
@@ -187,5 +188,12 @@ public class ChildrenOfFire extends GameEngine {
         }
 
         return indexMap;
+    }
+
+    public void increaseTileMap(){
+        currentTileMap++;
+        initializeTileMap();
+
+        deleteAllGameObjectsOfType(Coin.class);
     }
 }
