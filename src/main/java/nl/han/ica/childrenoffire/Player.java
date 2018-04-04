@@ -157,7 +157,7 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
             this.health -= d;
         }
         if(this.health == 0){
-            
+            world.resetGame();
         }
     }
 }

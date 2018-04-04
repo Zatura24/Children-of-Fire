@@ -211,4 +211,13 @@ public class ChildrenOfFire extends GameEngine {
 
         deleteAllGameObjectsOfType(Coin.class);
     }
+
+    public void resetGame() {
+        currentTileMap = 0;
+        initializeTileMap();
+
+        player = new Player(this);
+
+        setObjectLocations();
+    }
 }
