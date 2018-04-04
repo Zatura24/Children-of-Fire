@@ -32,9 +32,11 @@ public class ChildrenOfFire extends GameEngine {
         "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-1.txt"
     };
     private int currentTileMap = 0; // default
-
+    private Player player;
     public static void main(String[] args) {
-        PApplet.main(new String[] { "nl.han.ica.childrenoffire.ChildrenOfFire" });
+        //PApplet.main(new String[] { "nl.han.ica.childrenoffire.ChildrenOfFire" });
+        ChildrenOfFire w = new ChildrenOfFire();
+        w.runSketch();
     }
 
     /**
@@ -53,7 +55,7 @@ public class ChildrenOfFire extends GameEngine {
     }
 
     /**
-     * this function will be called every frame
+     * This function will be called every frame
      */
     @Override
     public void update() {
@@ -74,6 +76,7 @@ public class ChildrenOfFire extends GameEngine {
     private void createObjects() {
         int tileSize = getTileMap().getTileSize();
 
+        player = new Player(this);
         Enemy rabite_1 = new Rabite(this);
         Enemy rabite_2 = new Rabite(this);
         Enemy rabite_3 = new Rabite(this);
@@ -82,15 +85,20 @@ public class ChildrenOfFire extends GameEngine {
         addGameObject(rabite_3, 12*tileSize, 22*tileSize);
 
         // functie die niet nodig is yo XD
-        // int map[][] = getTileMap().getTileMap();
-        // for (int row = 0; row < map.length; row++) {
-        //     for (int col = 0; col < map[0].length; col++) {
-        //         if (map[row][col] == 3) {
-        //             float x = getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).x;
-        //             float y = getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).y;
-        //         }
-        //     }
-        // }
+        int map[][] = getTileMap().getTileMap();
+        int x = 32*tileSize;
+        int y = 14*tileSize;
+        for (int row = 0; row < map.length; row++) {
+            for (int col = 0; col < map[0].length; col++) {
+                if (map[row][col] == 3) {
+                    x = Math.round(getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).x);
+                    y = Math.round(getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).y);
+                }
+            }
+        }
+
+
+        addGameObject(player, x, y);
     }
 
     /**

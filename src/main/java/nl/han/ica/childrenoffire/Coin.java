@@ -18,4 +18,9 @@ public class Coin extends SpriteObject{
     public int getValue() {
         return value;
     }
+
+    public void pickUp(Player player, ChildrenOfFire world) {
+        player.increaseScore(value);
+        world.deleteGameObject(this);
+    }
 }
