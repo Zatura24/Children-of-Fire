@@ -29,7 +29,8 @@ import processing.core.PApplet;
  */
 @SuppressWarnings("serial")
 public class ChildrenOfFire extends GameEngine {
-    private TextObject dashboardText;
+    private TextObject healthText;
+    private TextObject creditsText;
     private Player player;
 
     private final int PLAYER_SPAWNPOINT = 1;
@@ -111,13 +112,18 @@ public class ChildrenOfFire extends GameEngine {
 
     private void createDashboard(int dashboardWidth, int dashboardHeight) {
         Dashboard dashboard = new Dashboard(0, 0, dashboardWidth, dashboardHeight);
-        dashboardText = new TextObject("");
-        dashboard.addGameObject(dashboardText);
+
+        healthText = new TextObject("");
+        creditsText = new TextObject("");
+        dashboard.addGameObject(healthText, 10, 0);
+        dashboard.addGameObject(creditsText, 10, 50);
+
         addDashboard(dashboard);
     }
 
     private void refreshDashboard() {
-        dashboardText.setText("player health");
+        healthText.setText("\u2764 " + player.getHealth());
+        creditsText.setText("$ " + player.getCredits());
     }
 
     /**

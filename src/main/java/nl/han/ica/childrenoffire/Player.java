@@ -12,11 +12,13 @@ import nl.han.ica.childrenoffire.tiles.WallTile;
 import processing.core.PVector;
 
 public class Player extends SpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles{
-    private int healthPlayer;
-    private int speed = 5;
     private ChildrenOfFire world;
-    private int currentKey;
+    private int health;
+    private int speed;
     private int credits;
+
+    
+    private int currentKey;
 
     /**
      * Constructor
@@ -25,8 +27,18 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
      * 
      */
     public Player(ChildrenOfFire world){
+        this(world, 100, 5);        
+    }
+
+    public Player(ChildrenOfFire world, int health) {
+        this(world, health, 5);
+    }
+
+    private Player(ChildrenOfFire world, int health, int speed) {
         super(new Sprite("src/main/java/nl/han/ica/childrenoffire/files/objectsprites/lyn.png"));
         this.world = world;
+        this.health = health;
+        this.speed = speed;
         setFriction(0.3f);
     }
 
@@ -64,6 +76,7 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
         this.credits += value;
     }
 
+    @Override
     public void gameObjectCollisionOccurred(java.util.List<GameObject> collidedObjects){
         for(GameObject o : collidedObjects){
             if(o instanceof Coin){
@@ -130,4 +143,11 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
         }
     }
 
+    public int getHealth() {
+        return this.health;
+    }
+
+    public int getCredits() {
+        return this.credits;
+    }
 }
