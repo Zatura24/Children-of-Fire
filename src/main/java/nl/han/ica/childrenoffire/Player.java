@@ -16,7 +16,6 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
     private int health;
     private int speed;
     private int credits;
-
     
     private int currentKey;
 
@@ -69,6 +68,11 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects, 
         }
         if(keyCode == world.LEFT){
             setDirectionSpeed(270, speed);
+        }
+        if(keyCode == 83){
+            Bullet bullet = new Bullet(this.getX(), this.getY(),this.getDirection(), 10, world);
+            world.addGameObject(bullet);
+            bullet.bulletMove();
         }
     }
 

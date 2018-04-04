@@ -160,5 +160,9 @@ public abstract class Enemy extends SpriteObject implements IHasItem, ICollidabl
         return this.world;
     }
 
+    public void decreaseHealth(int a){
+        this.health-=a;
+    }
+
     
 }
