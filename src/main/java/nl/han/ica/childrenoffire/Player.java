@@ -11,7 +11,7 @@ import nl.han.ica.childrenoffire.tiles.StairsTile;
 import nl.han.ica.childrenoffire.tiles.WallTile;
 import processing.core.PVector;
 
-public class Player extends SpriteObject implements ICollidableWithGameObjects,ICollidableWithTiles{
+public class Player extends SpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles{
     private int healthPlayer;
     private int speed = 5;
     private ChildrenOfFire world;
@@ -34,14 +34,14 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects,I
      * This function will be called every frame
      */
     public void update(){
-        //Doe iets
+        
     }
 
     /**
      * This function will be called when a key is pressed
      * 
-     * @param int keyCode - keycode of pressed key
-     * @param char key - character representation of pressed key
+     * @param int keyCode - Keycode of pressed key
+     * @param char key - Character representation of pressed key
      */
     @Override
     public void keyPressed(int keyCode, char key){
@@ -75,11 +75,12 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects,I
     /**
     * This function will be called when player collides with an tile
     * 
-    * @param List<CollidedTile> collidedTiles - list of collidedtiles
+    * @param List<CollidedTile> collidedTiles - List of collidedtiles
     */
     public void tileCollisionOccurred(java.util.List<CollidedTile> collidedTiles){
         PVector vector;
         for(CollidedTile t : collidedTiles){
+            // If player collided with a wall, move the player back
             if(t.theTile instanceof WallTile){
                 if(t.collisionSide == t.INSIDE){
                     if(currentKey == world.UP){
@@ -91,8 +92,6 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects,I
                             e.printStackTrace();
                         }
                     }
-                }
-                if (t.collisionSide == t.INSIDE) {
                     if (currentKey == world.RIGHT) {
                         try {
                             vector = world.getTileMap().getTilePixelLocation(t.theTile);
@@ -101,8 +100,6 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects,I
                             e.printStackTrace();
                         }
                     }
-                }
-                if(t.collisionSide == t.INSIDE){
                     if(currentKey == world.DOWN){
                         try{
                             vector = world.getTileMap().getTilePixelLocation(t.theTile);
@@ -112,20 +109,23 @@ public class Player extends SpriteObject implements ICollidableWithGameObjects,I
                             e.printStackTrace();
                         }
                     }
-                 } 
-                 if (t.collisionSide == t.INSIDE) {
-                    if (currentKey == world.LEFT) {
-                        try {
-                            vector = world.getTileMap().getTilePixelLocation(t.theTile);
-                            setX(vector.x + getWidth());
-                        } catch (TileNotFoundException e) {
-                            e.printStackTrace();
+                    if (t.collisionSide == t.INSIDE) {
+                        if (currentKey == world.LEFT) {
+                            try {
+                                vector = world.getTileMap().getTilePixelLocation(t.theTile);
+                                setX(vector.x + getWidth());
+                            } catch (TileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
+                 
             }
+
+            // If the player collided with a stair, go to next level
             if(t.theTile instanceof StairsTile){
-               world.increaseTileMap();
+               world.goToNextTileMap();
             }
         }
     }

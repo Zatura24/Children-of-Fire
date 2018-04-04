@@ -24,14 +24,20 @@ public abstract class Enemy extends SpriteObject implements IHasItem {
      * @param path - Path to the sprite object
      * @param health - Amount of health this enemy has
      */
-    public Enemy(ChildrenOfFire world, String path, int health) {
+    public Enemy(ChildrenOfFire world, String path, int posX, int posY, int health) {
         super(new Sprite(path));
         this.world = world;
         this.health = health;
 
+        setX(posX);
+        setY(posY);
+
         startTime = System.currentTimeMillis();
     }
 
+    /**
+     * This function will be called every frame
+     */
     @Override
     public void update() {
         currentTime = System.currentTimeMillis();
@@ -92,7 +98,7 @@ public abstract class Enemy extends SpriteObject implements IHasItem {
 
         if (surroundings[0][1] != 0) {
             setDirection(180);
-        } 
+        }
 
         if (surroundings[1][2] != 0) {
             setDirection(270);

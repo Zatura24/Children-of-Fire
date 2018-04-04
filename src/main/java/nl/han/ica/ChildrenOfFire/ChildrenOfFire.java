@@ -30,12 +30,16 @@ import processing.core.PApplet;
 @SuppressWarnings("serial")
 public class ChildrenOfFire extends GameEngine {
     private TextObject dashboardText;
+    private Player player;
+
+    private final int PLAYER_SPAWNPOINT = 1;
+    private final int ENEMY_SPAWNPOINT = 2;
+
     private String[] tilemapList = {
         "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-1.txt",
         "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-2.txt"
     };
     private int currentTileMap = 0; // default
-    private Player player;
 
     public static void main(String[] args) {
         // PApplet.main(new String[] { "nl.han.ica.childrenoffire.ChildrenOfFire" });
@@ -53,7 +57,10 @@ public class ChildrenOfFire extends GameEngine {
 
         initializeTileMap();
 
-        createObjects();
+        player = new Player(this);
+        addGameObject(player);
+        setObjectLocations();
+
         createDashboard(worldWidth, 100);
 
         createViewWithoutViewport(worldWidth, worldHeight);
@@ -79,30 +86,27 @@ public class ChildrenOfFire extends GameEngine {
         size(screenWidth, screenHeight);
     }
 
-    private void createObjects() {
-        int tileSize = getTileMap().getTileSize();
-
-        player = new Player(this);
-        Enemy rabite_1 = new Rabite(this);
-        Enemy rabite_2 = new Rabite(this);
-        Enemy rabite_3 = new Rabite(this);
-        addGameObject(rabite_1, 30*tileSize, 12*tileSize);
-        addGameObject(rabite_2, 32*tileSize, 14*tileSize);
-        addGameObject(rabite_3, 12*tileSize, 19*tileSize);
-
+    /**
+     * This function will set the position of all the objects and creates
+     * the enemy 
+     * 
+     * @param Player player - Reference to the player object
+     */
+    private void setObjectLocations() {
         int map[][] = getTileMap().getTileMap();
-        int x = 0;
-        int y = 0;
         for (int row = 0; row < map.length; row++) {
             for (int col = 0; col < map[0].length; col++) {
-                if (map[row][col] == 3) {
-                    x = Math.round(getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).x);
-                    y = Math.round(getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).y);
+                int x = Math.round(getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).x);
+                int y = Math.round(getTileMap().getTilePixelLocation(getTileMap().getTileOnIndex(col, row)).y);
+                if (map[row][col] == PLAYER_SPAWNPOINT) {
+                    player.setX(x);
+                    player.setY(y);
+                }
+                if (map[row][col] == ENEMY_SPAWNPOINT) {
+                    addGameObject(new Rabite(this, x, y));
                 }
             }
         }
-
-        addGameObject(player, x, y);
     }
 
     private void createDashboard(int dashboardWidth, int dashboardHeight) {
@@ -144,16 +148,20 @@ public class ChildrenOfFire extends GameEngine {
         String path = "src/main/java/nl/han/ica/childrenoffire/files/tilesprites/";
 
         Sprite groundSprite = new Sprite(path + "ground.png");
+        Sprite playerSpawnSprite = new Sprite(path + "spawn.png");
+        Sprite enemySpawnSprite = new Sprite(path + "ground.png");
+
+        Sprite stairsSprite = new Sprite(path + "stairs.png");
         Sprite wallTopSprite = new Sprite(path + "wall-top.png");
         Sprite wallSideSprite = new Sprite(path + "wall-side.png");
-        Sprite spawnSprite = new Sprite(path + "spawn.png");
-        Sprite stairsSprite = new Sprite(path + "stairs.png");
         
         tileTypeList.add(new TileType<>(GroundTile.class, groundSprite));
+        tileTypeList.add(new TileType<>(SpawnTile.class, playerSpawnSprite));
+        tileTypeList.add(new TileType<>(GroundTile.class, enemySpawnSprite));
+
+        tileTypeList.add(new TileType<>(StairsTile.class, stairsSprite));
         tileTypeList.add(new TileType<>(WallTile.class, wallTopSprite));
         tileTypeList.add(new TileType<>(WallTile.class, wallSideSprite));
-        tileTypeList.add(new TileType<>(SpawnTile.class, spawnSprite));
-        tileTypeList.add(new TileType<>(StairsTile.class, stairsSprite));
 
         return tileTypeList.toArray(new TileType[tileTypeList.size()]);
     }
@@ -189,9 +197,11 @@ public class ChildrenOfFire extends GameEngine {
         return indexMap;
     }
 
-    public void increaseTileMap(){
+    public void goToNextTileMap(){
         currentTileMap++;
         initializeTileMap();
+
+        setObjectLocations();
 
         deleteAllGameObjectsOfType(Coin.class);
     }
