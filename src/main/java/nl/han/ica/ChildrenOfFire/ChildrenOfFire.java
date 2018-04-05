@@ -23,7 +23,7 @@ import nl.han.ica.childrenoffire.tiles.*;
  * @author Jannick Joosten (598696)
  * @author Max van Essen (597823)
  * @category OOPD game
- * @version 0.9.0
+ * @version 1.0.0
  * @since 2018-03-30
  */
 @SuppressWarnings("serial")
@@ -232,7 +232,7 @@ public class ChildrenOfFire extends GameEngine {
      * Loads next map, delete all objects and set the objects of the new tilemap
      */
     public void goToNextTileMap(){
-        currentTileMap++;
+        currentTileMap = currentTileMap == 1 ? 0 : 1;
         initializeTileMap();
 
         deleteAllGameObjectsOfType(Coin.class);

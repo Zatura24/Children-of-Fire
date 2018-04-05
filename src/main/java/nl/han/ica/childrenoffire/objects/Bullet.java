@@ -17,10 +17,10 @@ import nl.han.ica.childrenoffire.tiles.WallTile;
  * @see SpriteObject, ICollidableWithGameObjects, ICollidableWithTiles
  */
 public class Bullet extends SpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
+    private ChildrenOfFire world;
     private int speed = 5;
     private float x, y;
     private float direction;
-    private ChildrenOfFire world;
     private int bulletDamage;
     private boolean canHurtEnemy;
     private boolean canHurtPlayer;
