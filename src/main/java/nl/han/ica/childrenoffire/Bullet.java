@@ -14,6 +14,8 @@ public class Bullet extends SpriteObject implements ICollidableWithGameObjects, 
     private float direction;
     private ChildrenOfFire world;
     private int bulletDamage;
+    private boolean canHurtEnemy;
+    private boolean canHurtPlayer;
 
     public Bullet(float x, float y, float direction, int bulletDamage, ChildrenOfFire world) {
         super(new Sprite("src/main/java/nl/han/ica/childrenoffire/files/objectsprites/mana-ball.png"));
@@ -22,6 +24,12 @@ public class Bullet extends SpriteObject implements ICollidableWithGameObjects, 
         this.direction = direction;
         this.world = world;
         this.bulletDamage = bulletDamage;
+    }
+
+    public Bullet(float x, float y, float direction, int bulletDamage, ChildrenOfFire world, boolean canHurtEnemy, boolean canHurtPlayer){
+        this(x, y, direction, bulletDamage, world);
+        this.canHurtEnemy = canHurtEnemy;
+        this.canHurtPlayer = canHurtPlayer;
     }
 
     public void bulletMove() {
@@ -39,9 +47,17 @@ public class Bullet extends SpriteObject implements ICollidableWithGameObjects, 
 
     public void gameObjectCollisionOccurred(java.util.List<GameObject> collidedObjects) {
         for (GameObject object : collidedObjects) {
-            if (object instanceof Enemy) {
-                ((Enemy) object).decreaseHealth(bulletDamage);
-                world.deleteGameObject(this);
+            if(canHurtEnemy){
+                if (object instanceof Enemy) {
+                    ((Enemy) object).decreaseHealth(bulletDamage);
+                    world.deleteGameObject(this);
+                }
+            }
+            if(canHurtPlayer){
+                if (object instanceof Player) {
+                    ((Player) object).decreaseHealth(bulletDamage);
+                    world.deleteGameObject(this);
+                }
             }
         }
     }

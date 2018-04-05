@@ -74,7 +74,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
             setCurrentFrameIndex(0);
         }
         if (keyCode == 83) {
-            Bullet bullet = new Bullet(this.getX(), this.getY(), this.getDirection(), 10, world);
+            Bullet bullet = new Bullet(this.getX(), this.getY(), this.getDirection(), 10, world, true, false);
             world.addGameObject(bullet);
             bullet.bulletMove();
         }

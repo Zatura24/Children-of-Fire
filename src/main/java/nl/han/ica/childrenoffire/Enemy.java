@@ -10,14 +10,16 @@ import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
  */
 public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, ICollidableWithGameObjects {
 
-    private ChildrenOfFire world;
+    protected ChildrenOfFire world;
 
     private int health;
+
+    private boolean canShoot = false;
 
     private int attackDamage = 20;
 
     // simpel timer variables for moving the object
-    private final int MOVEDELAY = 1000;
+    private final int MOVEDELAY = 500;
     private long startTime;
     private long currentTime;
 
@@ -40,6 +42,10 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
         startTime = System.currentTimeMillis();
     }
 
+    public Enemy(ChildrenOfFire world, String path, int posX, int posY, int health, boolean canShoot) {
+        this(world, path, posX, posY, health);
+        this.canShoot = canShoot;
+    }
     /**
      * This function will be called every frame
      */
@@ -49,6 +55,12 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
 
         moveObject();
         destroyObjectIfDead();
+    }
+
+    private void shootProjectile() {
+        Bullet bullet = new Bullet(this.getX(), this.getY(), this.getDirection(), 10, this.world, false, true);
+        this.world.addGameObject(bullet);
+        bullet.bulletMove();
     }
 
     /** 
@@ -88,7 +100,9 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
             int direction = (int) (Math.random() * 360);
             setSpeed(1);
             setDirection(direction);
-
+            if (canShoot) {
+                shootProjectile();
+            }
             setCurrentFrameIndex(direction > 180 ? 1 : 0);
         }
 

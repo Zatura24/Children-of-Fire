@@ -34,8 +34,10 @@ public class Eyeball extends Enemy {
      * @param health - Amount of health this enemy has
      */
     private Eyeball(ChildrenOfFire world, String path, int posX, int posY, int health) {
-        super(world, path, posX, posY, health);
+        super(world, path, posX, posY, health, true);
     }
+
+    
 
     @Override
     public void dropItem() {
