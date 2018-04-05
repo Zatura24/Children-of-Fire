@@ -1,21 +1,27 @@
-package nl.han.ica.childrenoffire;
+package nl.han.ica.childrenoffire.objects;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
+import nl.han.ica.childrenoffire.ChildrenOfFire;
+import nl.han.ica.childrenoffire.interfaces.IHasItem;
 
 /**
- * Enemy
+ * <h2>Enemy</h2>
+ * 
+ * Implementation of the abstract class enemy.
+ * <b>Note:</b> if there should be an enemy, it must be an extention of this class
+ * 
+ * @see AnimetedSpriteObject, IHasItem, ICollidableWithGameObjects
  */
 public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, ICollidableWithGameObjects {
-
+    
     protected ChildrenOfFire world;
-
     private int health;
 
+    // variables for attacking
     private boolean canShoot = false;
-
     private int attackDamage = 20;
 
     // simpel timer variables for moving the object
@@ -24,28 +30,32 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
     private long currentTime;
 
     /**
-     * Constructor
+     * Basic constructor for an enemy object
      * 
      * @param world - Reference to the world object
      * @param path - Path to the sprite object
      * @param health - Amount of health this enemy has
      */
     public Enemy(ChildrenOfFire world, String path, int posX, int posY, int health) {
+        this(world, path, posX, posY, health, false);
+    }
+
+    /**
+     * Constructor for an anemy object
+     */
+    public Enemy(ChildrenOfFire world, String path, int posX, int posY, int health, boolean canShoot) {
         super(new Sprite(path), 2);
         this.world = world;
         this.health = health;
+        this.canShoot = canShoot;
 
         setCurrentFrameIndex(0);
         setX(posX);
         setY(posY);
 
-        startTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis(); // start the counter used for timeouts
     }
 
-    public Enemy(ChildrenOfFire world, String path, int posX, int posY, int health, boolean canShoot) {
-        this(world, path, posX, posY, health);
-        this.canShoot = canShoot;
-    }
     /**
      * This function will be called every frame
      */
@@ -57,8 +67,11 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
         destroyObjectIfDead();
     }
 
+    /**
+     * Shoot projectile directly from this object
+     */
     private void shootProjectile() {
-        Bullet bullet = new Bullet(this.getX(), this.getY(), this.getDirection(), 10, this.world, false, true);
+        Bullet bullet = new Bullet(this.world, this.getX(), this.getY(), this.getDirection(), 10, false, true);
         this.world.addGameObject(bullet);
         bullet.bulletMove();
     }
@@ -98,14 +111,15 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
             startTime = System.currentTimeMillis();
 
             int direction = (int) (Math.random() * 360);
-            setSpeed(1);
-            setDirection(direction);
+            setDirectionSpeed(direction, 1);
+            setCurrentFrameIndex(direction > 180 ? 1 : 0);
+
             if (canShoot) {
                 shootProjectile();
             }
-            setCurrentFrameIndex(direction > 180 ? 1 : 0);
         }
 
+        // always move back from a wall
         preventFromGetttingOOB();
     }
 
@@ -117,19 +131,23 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
     private void preventFromGetttingOOB() {
         int surroundings[][] = getObjectSurrounding();
 
+        // move back down if there is a wall above
         if (surroundings[0][1] != 0) {
             setDirection(180);
         }
 
+        // move back left if there is a wall right
         if (surroundings[1][2] != 0) {
             setDirection(270);
             setCurrentFrameIndex(1);
         }
 
+        // move back up if there is a wall below
         if (surroundings[2][1] != 0) {
             setDirection(0);
         }
 
+        // move back right if there is a wall left
         if (surroundings[1][0] != 0) {
             setDirection(90);
             setCurrentFrameIndex(0);
@@ -146,15 +164,20 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
         }
     }
 
+    /**
+    * This function will be called when player collides with a game object
+    * 
+    * @param List<GameObject> collidedObjects - List of collided objects
+    */
     @Override
     public void gameObjectCollisionOccurred(java.util.List<GameObject> collidedObjects) {
         for (GameObject object : collidedObjects) {
             if (object instanceof Player) {
                 Player objectAsPlayer = (Player) object;
                 
-                objectAsPlayer.decreaseHealth(attackDamage);
+                objectAsPlayer.decreaseHealth(attackDamage); // damage player
 
-                // move the player away from the enemy
+                // move player away from enemy
                 if (objectAsPlayer.getDirection() == 90) { // van links naar rechts
                     objectAsPlayer.setX(objectAsPlayer.getX() - (objectAsPlayer.getWidth() / 2));
                 }
@@ -177,10 +200,20 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
     @Override
     public abstract void dropItem();
 
+    /**
+     * Get the world from this object
+     * 
+     * @return ChildrenOfFire world - returns the world object
+     */
     protected ChildrenOfFire getWorld() {
         return this.world;
     }
 
+    /**
+     * Decreasing the health of the enemy with a given amount
+     * 
+     * @param int amount - the amount with wich the player health will decrease
+     */
     protected void decreaseHealth(int amount) {
         this.health -= amount;
     }

@@ -1,5 +1,14 @@
-package nl.han.ica.childrenoffire;
+package nl.han.ica.childrenoffire.objects;
 
+import nl.han.ica.childrenoffire.ChildrenOfFire;
+
+/**
+ * <h3>Eyeball</h3>
+ * 
+ * Eyeall class wich is an extension of the enemy class.
+ * 
+ * @see Enemy
+ */
 public class Eyeball extends Enemy {
     /**
      * Constructor
@@ -37,8 +46,9 @@ public class Eyeball extends Enemy {
         super(world, path, posX, posY, health, true);
     }
 
-    
-
+    /**
+     * Function that will be called whenever this object has to drop its key
+     */
     @Override
     public void dropItem() {
         Key key = new Key();

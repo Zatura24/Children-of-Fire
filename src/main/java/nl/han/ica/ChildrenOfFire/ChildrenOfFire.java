@@ -11,11 +11,8 @@ import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
-import nl.han.ica.childrenoffire.tiles.GroundTile;
-import nl.han.ica.childrenoffire.tiles.KeyHoleTile;
-import nl.han.ica.childrenoffire.tiles.SpawnTile;
-import nl.han.ica.childrenoffire.tiles.StairsTile;
-import nl.han.ica.childrenoffire.tiles.WallTile;
+import nl.han.ica.childrenoffire.objects.*;
+import nl.han.ica.childrenoffire.tiles.*;
 
 /**
  * <h1>Children of Fire</h1>
@@ -23,9 +20,10 @@ import nl.han.ica.childrenoffire.tiles.WallTile;
  * <p>
  * <b>Note:</b> This game is made for the for school purposes only
  * 
- * @author Jannick Joosten
- * @author Max van Essen
- * @version 0.0.1
+ * @author Jannick Joosten (598696)
+ * @author Max van Essen (597823)
+ * @category OOPD game
+ * @version 0.9.0
  * @since 2018-03-30
  */
 @SuppressWarnings("serial")
@@ -44,6 +42,9 @@ public class ChildrenOfFire extends GameEngine {
     };
     private int currentTileMap = 0; // default
 
+    /**
+     * Main function to start the whole game
+     */
     public static void main(String[] args) {
         // PApplet.main(new String[] { "nl.han.ica.childrenoffire.ChildrenOfFire" });
         ChildrenOfFire w = new ChildrenOfFire();
@@ -51,7 +52,7 @@ public class ChildrenOfFire extends GameEngine {
     }
 
     /**
-     * setup of the whole game
+     * Setup of the whole game
      */
     @Override
     public void setupGame() {
@@ -119,6 +120,12 @@ public class ChildrenOfFire extends GameEngine {
         }
     }
 
+    /**
+     * Creation of the dashboard. 
+     * 
+     * @param int dashboardWidth - The width of the dashboard
+     * @param int dashboardHeight - The height of the dashboard
+     */
     private void createDashboard(int dashboardWidth, int dashboardHeight) {
         Dashboard dashboard = new Dashboard(0, 0, dashboardWidth, dashboardHeight);
 
@@ -132,6 +139,9 @@ public class ChildrenOfFire extends GameEngine {
         addDashboard(dashboard);
     }
 
+    /**
+     * The refreshing of the dashboard. This will update the specified text objects
+     */
     private void refreshDashboard() {
         healthText.setText("\u2764 " + player.getHealth());
         creditsText.setText("$ " + player.getCredits());
@@ -139,9 +149,9 @@ public class ChildrenOfFire extends GameEngine {
     }
 
     /**
-     * This function will initialize the whole tile map
-     * 
-     * @see TileMap
+     * This function will initialize the whole tile map.
+     * It will create a new tile type list and subsequently it will
+     * create the index map from a file.
      */
     private void initializeTileMap() {
         int tileSize = 32;
@@ -158,7 +168,6 @@ public class ChildrenOfFire extends GameEngine {
      * 
      * 
      * @return returns a new TileType[] containing all tile types
-     * @see TileType
      */
     private TileType[] initializeTileTypes() {
         ArrayList<TileType> tileTypeList = new ArrayList<>();
@@ -196,8 +205,9 @@ public class ChildrenOfFire extends GameEngine {
      * @param int width - This is the width of the index map
      * @param int height - This is the height of the index map
      * @return int[][] indexMap - This will return the index map
+     * @see FilePersistence
      */
-    public int[][] loadIndexMapFromFile(String path, int width, int height) {
+    private int[][] loadIndexMapFromFile(String path, int width, int height) {
         IPersistence indexMapPersistence = new FilePersistence(path);
         String fileToStringList[];
         
@@ -217,6 +227,10 @@ public class ChildrenOfFire extends GameEngine {
         return indexMap;
     }
 
+    /**
+     * Instaniate the next tile map in the list.
+     * Loads next map, delete all objects and set the objects of the new tilemap
+     */
     public void goToNextTileMap(){
         currentTileMap++;
         initializeTileMap();
@@ -228,6 +242,9 @@ public class ChildrenOfFire extends GameEngine {
         setObjectLocations();
     }
 
+    /**
+     * Reload the whole new game
+     */
     public void resetGame() {
         currentTileMap = 0;
         initializeTileMap();
@@ -240,6 +257,11 @@ public class ChildrenOfFire extends GameEngine {
         setObjectLocations();
     }
 
+    /**
+     * Opens the gate by replacing the given tile with a ground tile, only if the player has 1 or more keys.
+     * 
+     * @param Tile tile - The tile that will be replaced
+     */
     public void openGate(Tile tile) {
         if (player.getKeys() > 0) {
             int x = Math.round(getTileMap().getTilePixelLocation(tile).x);

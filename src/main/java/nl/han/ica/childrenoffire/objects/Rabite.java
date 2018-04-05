@@ -1,10 +1,19 @@
-package nl.han.ica.childrenoffire;
+package nl.han.ica.childrenoffire.objects;
 
+import nl.han.ica.childrenoffire.ChildrenOfFire;
+
+/**
+ * <h3>Rabite</h3>
+ * 
+ * Rabite class wich is an extension of the enemy class.
+ * 
+ * @see Enemy
+ */
 public class Rabite extends Enemy {    
     /**
-     * Constructor
+     * Basic constructor for a rabite object 
      * 
-     * @param world - Reference to the world object
+     * @param world - Reference to the world class
      * @param int posX - Starting X position
      * @param int posY - Starting Y position
      */
@@ -15,7 +24,7 @@ public class Rabite extends Enemy {
     /**
      * Constructor
      * 
-     * @param world - Reference to the world object
+     * @param world - Reference to the world class
      * @param int posX - Starting X position
      * @param int posY - Starting Y position
      * @param health - Amount of health this enemy has
@@ -37,6 +46,9 @@ public class Rabite extends Enemy {
         super(world, path, posX, posY, health);
     }
 
+    /**
+     * Function that will be called whenever this object has to drop its coin
+     */
     @Override
     public void dropItem() {
         Coin coin = new Coin(1);
