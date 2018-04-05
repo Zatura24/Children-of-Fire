@@ -7,6 +7,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
+import nl.han.ica.childrenoffire.tiles.KeyHoleTile;
 import nl.han.ica.childrenoffire.tiles.StairsTile;
 import nl.han.ica.childrenoffire.tiles.WallTile;
 import processing.core.PVector;
@@ -101,7 +102,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
         PVector vector;
         for (CollidedTile tile : collidedTiles) {
             // If player collided with a wall, move the player back
-            if (tile.theTile instanceof WallTile) {
+            if (tile.theTile instanceof WallTile || tile.theTile instanceof KeyHoleTile) {
                 if (tile.collisionSide == tile.INSIDE) {
                     if (currentKey == world.UP) {
                         try {
@@ -142,6 +143,10 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
             // If the player collided with a stair, go to next level
             if (tile.theTile instanceof StairsTile) {
                 world.goToNextTileMap();
+            }
+
+            if (tile.theTile instanceof KeyHoleTile) {
+                world.openGate(tile.theTile);
             }
         }
     }

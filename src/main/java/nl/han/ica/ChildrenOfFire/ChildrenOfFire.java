@@ -7,10 +7,12 @@ import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
+import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
 import nl.han.ica.childrenoffire.tiles.GroundTile;
+import nl.han.ica.childrenoffire.tiles.KeyHoleTile;
 import nl.han.ica.childrenoffire.tiles.SpawnTile;
 import nl.han.ica.childrenoffire.tiles.StairsTile;
 import nl.han.ica.childrenoffire.tiles.WallTile;
@@ -35,8 +37,6 @@ public class ChildrenOfFire extends GameEngine {
 
     private final int PLAYER_SPAWNPOINT = 1;
     private final int ENEMY_SPAWNPOINT = 2;
-
-    
 
     private String[] tilemapList = {
         "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-1.txt",
@@ -172,6 +172,7 @@ public class ChildrenOfFire extends GameEngine {
         Sprite stairsSprite = new Sprite(path + "stairs.png");
         Sprite wallTopSprite = new Sprite(path + "wall-top.png");
         Sprite wallSideSprite = new Sprite(path + "wall-side.png");
+        Sprite keyHoleSprite = new Sprite(path + "key-hole.png");
         
         tileTypeList.add(new TileType<>(GroundTile.class, groundSprite));
         tileTypeList.add(new TileType<>(SpawnTile.class, playerSpawnSprite));
@@ -180,6 +181,7 @@ public class ChildrenOfFire extends GameEngine {
         tileTypeList.add(new TileType<>(StairsTile.class, stairsSprite));
         tileTypeList.add(new TileType<>(WallTile.class, wallTopSprite));
         tileTypeList.add(new TileType<>(WallTile.class, wallSideSprite));
+        tileTypeList.add(new TileType<>(KeyHoleTile.class, keyHoleSprite));
 
         return tileTypeList.toArray(new TileType[tileTypeList.size()]);
     }
@@ -236,5 +238,14 @@ public class ChildrenOfFire extends GameEngine {
         addGameObject(player);
 
         setObjectLocations();
+    }
+
+    public void openGate(Tile tile) {
+        if (player.getKeys() > 0) {
+            int x = Math.round(getTileMap().getTilePixelLocation(tile).x);
+            int y = Math.round(getTileMap().getTilePixelLocation(tile).y);
+            int tileSize = getTileMap().getTileSize();
+            getTileMap().setTile(x / tileSize, y / tileSize, 0);
+        }
     }
 }
