@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Dashboard.Dashboard;
 import nl.han.ica.OOPDProcessingEngineHAN.Engine.GameEngine;
-import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.FilePersistence;
 import nl.han.ica.OOPDProcessingEngineHAN.Persistence.IPersistence;
@@ -31,10 +30,13 @@ import nl.han.ica.childrenoffire.tiles.WallTile;
 public class ChildrenOfFire extends GameEngine {
     private TextObject healthText;
     private TextObject creditsText;
+    private TextObject keysText;
     private Player player;
 
     private final int PLAYER_SPAWNPOINT = 1;
     private final int ENEMY_SPAWNPOINT = 2;
+
+    
 
     private String[] tilemapList = {
         "main/java/nl/han/ica/childrenoffire/files/tilemaps/tilemap-1.txt",
@@ -59,12 +61,14 @@ public class ChildrenOfFire extends GameEngine {
         initializeTileMap();
 
         player = new Player(this);
-        addGameObject(player);
+
+        addGameObject(player);  
         setObjectLocations();
 
-        createDashboard(worldWidth, 100);
+        createDashboard(worldWidth, 150);
 
         createViewWithoutViewport(worldWidth, worldHeight);
+
     }
 
     /**
@@ -104,7 +108,12 @@ public class ChildrenOfFire extends GameEngine {
                     player.setY(y);
                 }
                 if (map[row][col] == ENEMY_SPAWNPOINT) {
-                    addGameObject(new Rabite(this, x, y));
+                   // addGameObject(new Rabite(this, x, y));
+                    if(currentTileMap == 0){
+                        addGameObject(new Rabite(this, x, y));
+                    }else if(currentTileMap == 1){
+                        addGameObject(new Eyeball(this, x, y));
+                    }
                 }
             }
         }
@@ -115,8 +124,10 @@ public class ChildrenOfFire extends GameEngine {
 
         healthText = new TextObject("");
         creditsText = new TextObject("");
+        keysText = new TextObject("");
         dashboard.addGameObject(healthText, 10, 0);
         dashboard.addGameObject(creditsText, 10, 50);
+        dashboard.addGameObject(keysText, 10, 100);
 
         addDashboard(dashboard);
     }
@@ -124,6 +135,7 @@ public class ChildrenOfFire extends GameEngine {
     private void refreshDashboard() {
         healthText.setText("\u2764 " + player.getHealth());
         creditsText.setText("$ " + player.getCredits());
+        keysText.setText("Keys: " + player.getKeys());
     }
 
     /**
@@ -207,9 +219,11 @@ public class ChildrenOfFire extends GameEngine {
         currentTileMap++;
         initializeTileMap();
 
-        setObjectLocations();
-
         deleteAllGameObjectsOfType(Coin.class);
+        deleteAllGameObjectsOfType(Eyeball.class);
+        deleteAllGameObjectsOfType(Rabite.class);
+
+        setObjectLocations();
     }
 
     public void resetGame() {

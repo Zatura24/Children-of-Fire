@@ -86,7 +86,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
             if (object instanceof Coin) {
                 ((Coin) object).pickUp(this, world);
             }
-
+            if (object instanceof Key){
+                ((Key) object).pickUp(this, world);
+            }
         }
     }
 
@@ -172,4 +174,5 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
     public int getKeys() {
         return this.keys;
     }
+
 }

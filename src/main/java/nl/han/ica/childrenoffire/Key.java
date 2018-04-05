@@ -14,7 +14,7 @@ public class Key extends SpriteObject implements IPickupable{
 
     @Override
     public void pickUp(Player player, ChildrenOfFire world) {
-        player.increaseScore(1);
+        player.increaseKeys(1);
         world.deleteGameObject(this);
     }
 }
