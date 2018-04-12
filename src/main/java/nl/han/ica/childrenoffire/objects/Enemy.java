@@ -22,7 +22,7 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
 
     // variables for attacking
     private boolean canShoot = false;
-    private int attackDamage = 20;
+    private int attackDamage = 10;
 
     // simpel timer variables for moving the object
     private final int MOVEDELAY = 500;
@@ -71,7 +71,7 @@ public abstract class Enemy extends AnimatedSpriteObject implements IHasItem, IC
      * Shoot projectile directly from this object
      */
     private void shootProjectile() {
-        Bullet bullet = new Bullet(this.world, this.getX(), this.getY(), this.getDirection(), 10, false, true);
+        Bullet bullet = new Bullet(this.world, this.getX(), this.getY(), this.getDirection(), 20, false, true);
         this.world.addGameObject(bullet);
         bullet.bulletMove();
     }

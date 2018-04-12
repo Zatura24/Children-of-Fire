@@ -268,6 +268,7 @@ public class ChildrenOfFire extends GameEngine {
             int y = Math.round(getTileMap().getTilePixelLocation(tile).y);
             int tileSize = getTileMap().getTileSize();
             getTileMap().setTile(x / tileSize, y / tileSize, 0);
+            player.increaseKeys(-1);
         }
     }
 }

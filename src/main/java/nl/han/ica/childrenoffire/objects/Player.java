@@ -211,7 +211,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
      * 
      * @param int value - value with wich the keys will increased
      */
-    protected void increaseKeys(int value) {
+    public void increaseKeys(int value) {
         this.keys += value;
     }
 
