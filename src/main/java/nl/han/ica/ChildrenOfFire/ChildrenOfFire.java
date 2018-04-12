@@ -23,7 +23,7 @@ import nl.han.ica.childrenoffire.tiles.*;
  * @author Jannick Joosten (598696)
  * @author Max van Essen (597823)
  * @category OOPD game
- * @version 1.0.0
+ * @version 1.1.0
  * @since 2018-03-30
  */
 @SuppressWarnings("serial")
