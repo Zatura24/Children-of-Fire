@@ -1,7 +1,7 @@
-package nl.han.ica.childrenoffire.interfaces;
+package nl.han.ica.ChildrenOfFire.interfaces;
 
-import nl.han.ica.childrenoffire.objects.Player;
-import nl.han.ica.childrenoffire.ChildrenOfFire;
+import nl.han.ica.ChildrenOfFire.ChildrenOfFire;
+import nl.han.ica.ChildrenOfFire.objects.Player;
 
 /**
  * Can be picked up interface

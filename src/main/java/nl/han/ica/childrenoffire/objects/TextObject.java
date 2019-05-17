@@ -1,4 +1,4 @@
-package nl.han.ica.childrenoffire.objects;
+package nl.han.ica.ChildrenOfFire.objects;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import processing.core.PGraphics;

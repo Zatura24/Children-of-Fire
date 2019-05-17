@@ -1,4 +1,4 @@
-package nl.han.ica.childrenoffire.interfaces;
+package nl.han.ica.ChildrenOfFire.interfaces;
 
 /**
  * Has item interface

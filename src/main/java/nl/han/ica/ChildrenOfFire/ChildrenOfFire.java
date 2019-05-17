@@ -1,4 +1,4 @@
-package nl.han.ica.childrenoffire;
+package nl.han.ica.ChildrenOfFire;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileMap;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.TileType;
 import nl.han.ica.OOPDProcessingEngineHAN.View.View;
-import nl.han.ica.childrenoffire.objects.*;
-import nl.han.ica.childrenoffire.tiles.*;
+import nl.han.ica.ChildrenOfFire.objects.*;
+import nl.han.ica.ChildrenOfFire.tiles.*;
 
 /**
  * <h1>Children of Fire</h1>

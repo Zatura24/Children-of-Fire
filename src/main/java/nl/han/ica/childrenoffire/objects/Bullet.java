@@ -1,13 +1,13 @@
-package nl.han.ica.childrenoffire.objects;
+package nl.han.ica.ChildrenOfFire.objects;
 
+import nl.han.ica.ChildrenOfFire.ChildrenOfFire;
+import nl.han.ica.ChildrenOfFire.tiles.WallTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
-import nl.han.ica.childrenoffire.ChildrenOfFire;
-import nl.han.ica.childrenoffire.tiles.WallTile;
 
 /**
  * <h2>Bullet<h2>

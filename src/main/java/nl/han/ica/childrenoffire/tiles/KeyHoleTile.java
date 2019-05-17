@@ -1,4 +1,4 @@
-package nl.han.ica.childrenoffire.tiles;
+package nl.han.ica.ChildrenOfFire.tiles;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Tile.Tile;

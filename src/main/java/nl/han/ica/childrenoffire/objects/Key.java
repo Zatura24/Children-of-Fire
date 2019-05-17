@@ -1,9 +1,9 @@
-package nl.han.ica.childrenoffire.objects;
+package nl.han.ica.ChildrenOfFire.objects;
 
+import nl.han.ica.ChildrenOfFire.ChildrenOfFire;
+import nl.han.ica.ChildrenOfFire.interfaces.IPickupable;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.SpriteObject;
-import nl.han.ica.childrenoffire.ChildrenOfFire;
-import nl.han.ica.childrenoffire.interfaces.IPickupable;
 
 /**
  * Basic key class that has the implementations of IPickupable

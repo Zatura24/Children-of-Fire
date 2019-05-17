@@ -1,5 +1,9 @@
-package nl.han.ica.childrenoffire.objects;
+package nl.han.ica.ChildrenOfFire.objects;
 
+import nl.han.ica.ChildrenOfFire.ChildrenOfFire;
+import nl.han.ica.ChildrenOfFire.tiles.KeyHoleTile;
+import nl.han.ica.ChildrenOfFire.tiles.StairsTile;
+import nl.han.ica.ChildrenOfFire.tiles.WallTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.CollidedTile;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithTiles;
@@ -7,10 +11,6 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.childrenoffire.ChildrenOfFire;
-import nl.han.ica.childrenoffire.tiles.KeyHoleTile;
-import nl.han.ica.childrenoffire.tiles.StairsTile;
-import nl.han.ica.childrenoffire.tiles.WallTile;
 import processing.core.PVector;
 
 /**

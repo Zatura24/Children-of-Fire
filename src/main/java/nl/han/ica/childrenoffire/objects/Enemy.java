@@ -1,11 +1,11 @@
-package nl.han.ica.childrenoffire.objects;
+package nl.han.ica.ChildrenOfFire.objects;
 
+import nl.han.ica.ChildrenOfFire.ChildrenOfFire;
+import nl.han.ica.ChildrenOfFire.interfaces.IHasItem;
 import nl.han.ica.OOPDProcessingEngineHAN.Collision.ICollidableWithGameObjects;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
-import nl.han.ica.childrenoffire.ChildrenOfFire;
-import nl.han.ica.childrenoffire.interfaces.IHasItem;
 
 /**
  * <h2>Enemy</h2>

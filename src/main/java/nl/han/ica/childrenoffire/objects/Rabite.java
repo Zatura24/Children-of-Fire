@@ -1,6 +1,6 @@
-package nl.han.ica.childrenoffire.objects;
+package nl.han.ica.ChildrenOfFire.objects;
 
-import nl.han.ica.childrenoffire.ChildrenOfFire;
+import nl.han.ica.ChildrenOfFire.ChildrenOfFire;
 
 /**
  * <h3>Rabite</h3>

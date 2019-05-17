@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ChildrenOfFire",
+            "request": "launch",
+            "mainClass": "nl.han.ica.ChildrenOfFire.ChildrenOfFire",
+            "projectName": "OOPG-ZetHierNaamVanJeSpel"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch)-ChildrenOfFire<OOPG-ZetHierNaamVanJeSpel>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
