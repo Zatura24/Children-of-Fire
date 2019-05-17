@@ -11,6 +11,7 @@ import nl.han.ica.OOPDProcessingEngineHAN.Exceptions.TileNotFoundException;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.AnimatedSpriteObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.Sprite;
+import processing.core.PConstants;
 import processing.core.PVector;
 
 /**
@@ -83,23 +84,23 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
         currentKey = keyCode; // set the currently pressed key
         
         // move up
-        if (keyCode == world.UP) {
+        if (keyCode == PConstants.UP) {
             setDirectionSpeed(0, speed);
         }
 
         // move right
-        if (keyCode == world.RIGHT) {
+        if (keyCode == PConstants.RIGHT) {
             setDirectionSpeed(90, speed);
             setCurrentFrameIndex(1);
         }
 
         // move down
-        if (keyCode == world.DOWN) {
+        if (keyCode == PConstants.DOWN) {
             setDirectionSpeed(180, speed);
         }
 
         // move left
-        if (keyCode == world.LEFT) {
+        if (keyCode == PConstants.LEFT) {
             setDirectionSpeed(270, speed);
             setCurrentFrameIndex(0);
         }
@@ -144,9 +145,9 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
 
             // If player collided with a wall, move the player back
             if (tile.theTile instanceof WallTile || tile.theTile instanceof KeyHoleTile) {
-                if (tile.collisionSide == tile.INSIDE) {
+                if (tile.collisionSide == CollidedTile.INSIDE) {
                     // if the player was moving up, move it back down
-                    if (currentKey == world.UP) {
+                    if (currentKey == PConstants.UP) {
                         try {
                             vector = world.getTileMap().getTilePixelLocation(tile.theTile);
                             setY(vector.y + getHeight());
@@ -155,7 +156,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
                         }
                     }
                     // if the player was moving right, move it back left
-                    if (currentKey == world.RIGHT) {
+                    if (currentKey == PConstants.RIGHT) {
                         try {
                             vector = world.getTileMap().getTilePixelLocation(tile.theTile);
                             setX(vector.x - getWidth());
@@ -164,7 +165,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
                         }
                     }
                     // if the player was moving down, move it back up
-                    if (currentKey == world.DOWN) {
+                    if (currentKey == PConstants.DOWN) {
                         try {
                             vector = world.getTileMap().getTilePixelLocation(tile.theTile);
                             setY(vector.y - getHeight());
@@ -173,7 +174,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithGameO
                         }
                     }
                     // if the player was moving left, move it back right
-                    if (currentKey == world.LEFT) {
+                    if (currentKey == PConstants.LEFT) {
                         try {
                             vector = world.getTileMap().getTilePixelLocation(tile.theTile);
                             setX(vector.x + getWidth());

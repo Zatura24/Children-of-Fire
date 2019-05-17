@@ -14,14 +14,14 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: processing.sound:mp3spi:1.9.4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: processing.sound:tritonus_aos:1.9.4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Maven: processing.sound:tritonus_share:1.0"/>
-	<classpathentry kind="lib" path="lib/processing/core/2.2.1/core-2.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/processing/gifanimation/1.0/gifanimation-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/processing/sound/1.0/sound-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/processing/sound/jl/1.0/jl-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/processing/sound/jsminim/1.0/jsminim-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/processing/sound/minim/1.0/minim-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/processing/sound/mp3spi/1.9.4/mp3spi-1.9.4.jar"/>
-	<classpathentry kind="lib" path="lib/processing/sound/tritonus_aos/1.9.4/tritonus_aos-1.9.4.jar"/>
-	<classpathentry kind="lib" path="lib/processing/sound/tritonus_share/1.0/tritonus_share-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/processing/core/2.2.1/core-2.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/processing/gifanimation/1.0/gifanimation-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/processing/sound/1.0/sound-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/processing/sound/jl/1.0/jl-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/processing/sound/jsminim/1.0/jsminim-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/processing/sound/minim/1.0/minim-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/processing/sound/mp3spi/1.9.4/mp3spi-1.9.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/processing/sound/tritonus_aos/1.9.4/tritonus_aos-1.9.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/processing/sound/tritonus_share/1.0/tritonus_share-1.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

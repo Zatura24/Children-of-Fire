@@ -1,6 +1,7 @@
 package nl.han.ica.ChildrenOfFire.objects;
 
 import nl.han.ica.OOPDProcessingEngineHAN.Objects.GameObject;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 
 /**
@@ -44,7 +45,7 @@ public class TextObject extends GameObject {
      */
     @Override
     public void draw(PGraphics g) {
-        g.textAlign(g.LEFT, g.TOP);
+        g.textAlign(PConstants.LEFT, PConstants.TOP);
         g.textSize(32);
         g.text(text, getX(), getY());
     }
